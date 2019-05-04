@@ -3,7 +3,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 SOURCE_URL = 'https://storage.googleapis.com/cvdf-datasets/mnist/'
 
-BATCH_SIZE = 64
+BATCH_SIZE = 128
 sum = 0
 steps = 2000
 
