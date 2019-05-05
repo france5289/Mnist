@@ -3,7 +3,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 SOURCE_URL = 'https://storage.googleapis.com/cvdf-datasets/mnist/'
 
-BATCH_SIZE = 64
+BATCH_SIZE = 128
 sum = 0
 steps = 2000
 
@@ -20,6 +20,9 @@ def bias_variable(shape):
   return tf.Variable(initial)
   
 def conv2d(x, W):
+  '''
+  "strides": is 1-D tensor of length 4, following NHWC format:(Num_samples x Height x Width x Channels) 
+  '''
   return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
 
 def max_pool_2x2(x):
@@ -28,13 +31,13 @@ def max_pool_2x2(x):
 # Define the TensorFlow graph
 x = tf.placeholder(tf.float32, shape=[None, 784])
 y_ = tf.placeholder(tf.float32, shape=[None, 10])
-x_image = tf.reshape(x, [-1, 28, 28, 1])
+x_image = tf.reshape(x, [-1, 28, 28, 1]) # [-1,28,28,1] : batch size => determined during traning, 28*28 image, channel:1 => gray-scale image
 
 #Convolution layer 1
 W = tf.Variable(tf.zeros([784,10]))
 b = tf.Variable(tf.zeros([10]))
 
-W_conv1 = weight_variable([5, 5, 1, 32])
+W_conv1 = weight_variable([5, 5, 1, 32]) # filter size: 5*5*1 , number of filters:32
 b_conv1 = bias_variable([32])
 
 #Activation layer RELU
